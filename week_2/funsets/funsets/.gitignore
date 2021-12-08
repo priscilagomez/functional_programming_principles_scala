@@ -14,4 +14,4 @@ logs/
 *.csv
 *.dat
 
-*/FunSets.scala
+*FunSets.scala
