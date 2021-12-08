@@ -66,11 +66,10 @@ object RecFun extends RecFunInterface {
    * Exercise 3
    */
   def countChange(money: Int, coins: List[Int]): Int = {
-    var aux = coins.sorted
     if (coins.isEmpty) 0
-    else if (money - aux.head == 0) 1
-    else if (money - aux.head < 0) 0
-    else countChange(money - aux.head, coins) + countChange(money, aux.tail)
+    else if (money - coins.sorted.head == 0) 1
+    else if (money - coins.sorted.head < 0) 0
+    else countChange(money - coins.sorted.head, coins) + countChange(money, coins.sorted.tail)
 
 
   }
