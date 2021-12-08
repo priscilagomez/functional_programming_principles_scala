@@ -1,5 +1,7 @@
 package recfun
 
+import scala.annotation.tailrec
+
 object RecFun extends RecFunInterface {
 
 //  def main(args: Array[String]): Unit = {
@@ -24,14 +26,14 @@ object RecFun extends RecFunInterface {
   /**
    * Exercise 1
    */
-  def pascal(r: Int, c: Int): Int = {
+  def pascal(c: Int, r: Int): Int = {
     if (c == 0 || c == r) 1
     else {
 
       if (r >= 2 && c>=1) {
-        pascal(r-1, c - 1) + pascal(r-1, c)
+        pascal(r=r-1, c=c - 1) + pascal(r=r-1, c=c)
       }
-      else pascal(r-1, 0)
+      else pascal(r=r-1, c=0)
     }
   }
 
@@ -39,27 +41,37 @@ object RecFun extends RecFunInterface {
    * Exercise 2
    */
   def balance(chars: List[Char]): Boolean = {
-    def f(chars: List[Char], count:Int): Boolean ={
-      if (chars.isEmpty) count == 0
+    @tailrec
+    def f(chars: List[Char], count_start:Int, count_end:Int, count_total:Int): Boolean ={
+      if (chars.isEmpty) (count_start - count_end) == 0 && count_total - count_start -count_end == 0
       else {
-        val aux =
-        if (chars.head == '(') count + 1
-        else  if (chars.head == ')')  count -1
-        else count
+        val aux_start =
+          if (chars.head == '(') count_start + 1
+          else count_start
 
-        f(chars.tail, aux)
+        val aux_end =
+          if (chars.head == ')' && count_start >0 &&count_start > count_end)  count_end + 1
+          else count_end
+
+        val aux =
+          if (chars.head == ')' || chars.head == '(') count_total + 1
+          else count_total
+        f(chars.tail, aux_start, aux_end, aux)
       }
     }
-    f(chars, 0)
+    f(chars, 0, 0, 0)
   }
 
   /**
    * Exercise 3
    */
   def countChange(money: Int, coins: List[Int]): Int = {
+    var aux = coins.sorted
     if (coins.isEmpty) 0
-    else if (money - coins.head == 0) 1
-    else if (money - coins.head < 0) 0
-    else countChange(money - coins.head, coins) + countChange(money, coins.tail)
+    else if (money - aux.head == 0) 1
+    else if (money - aux.head < 0) 0
+    else countChange(money - aux.head, coins) + countChange(money, aux.tail)
+
+
   }
 }
