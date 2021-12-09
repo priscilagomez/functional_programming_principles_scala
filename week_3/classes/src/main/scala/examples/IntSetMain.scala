@@ -39,7 +39,7 @@ object IntSetMain {
     override def toString = "."
 
     /* PASo 3*/
-    def union(other: IntSet): IntSet //min 19:03
+    def union(other: IntSet): IntSet // TODO min 19:03
   }
 
   /*Extension de clases*/
