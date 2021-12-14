@@ -1,3 +1,5 @@
+import scala.math.sqrt
+
 /*****************************************************************************/
 //2.1 Conditional Expressions
 val x = 10
@@ -53,12 +55,12 @@ val s = recursiveSum(1 to 5: _*) // Consider 1 to 5 as an argument sequence
 //2.10 Procedures
 // Scala has a special notation for a function that returns no value
 //Because the procedure doesn’t return any value, we omit the = symbol
-def box(s : String) { // Look carefully: no =
+def box(s : String): Unit = { // Look carefully: no =
   val border = "-" * s.length + "--\n"
   println(border + "|" + s + "|\n" + border)
 }
 
-val a = box("Hello")
+box("Hello")
 
 /*****************************************************************************/
 //2.11 Lazy Values
@@ -71,6 +73,12 @@ val a = box("Hello")
 
 /*****************************************************************************/
 //2.12 Exceptions
+val x = -3
+if (x >= 0) sqrt(x)
+else throw new IllegalArgumentException("x should not be negative")
+
+
+
 
 
 
