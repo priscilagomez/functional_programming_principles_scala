@@ -60,7 +60,7 @@ def box(s : String): Unit = { // Look carefully: no =
   println(border + "|" + s + "|\n" + border)
 }
 
-box("Hello")
+val res: Unit = box("Hello")
 
 /*****************************************************************************/
 //2.11 Lazy Values
