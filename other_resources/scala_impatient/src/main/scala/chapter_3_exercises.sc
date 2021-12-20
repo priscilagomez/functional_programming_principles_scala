@@ -1,6 +1,7 @@
 /*****************************************************************************/
 /*. Write a code snippet that sets a to an array of n random integers between 0
 (inclusive) and n (exclusive).*/
+import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 def fun(len_array: Int, n: Int)= {
@@ -55,12 +56,36 @@ def rearrange(array_in:Array[Int]):Array[Int] = {
 }
 val res = rearrange(Array(1, -2, -3, 4, 5))
 
+def rearrangeBuffer(array_in:ArrayBuffer[Int]):ArrayBuffer[Int] = {
+  for (element <- array_in.reverse) yield element
+}
+rearrangeBuffer(ArrayBuffer(1, -2, -3, 4, 5))
+
 /*****************************************************************************/
 /*Write a code snippet that produces all values from an array with duplicates
 removed. (Hint: Look at Scaladoc) */
-Array(1,2,3,2,1,4).distinct
-def fun_distinct(array_in:Array[Int]):Array[Int] = {
-  val aux =array_in.distinct.toArray
-  aux
+def fun_distinct(array_in:Array[Int]):Array[Int] = array_in.distinct
+val res = fun_distinct(Array(1,2,3,2,1,4))
+
+/*****************************************************************************/
+/*Suppose you are given an array buffer of integers and want to remove all but
+the first negative number. Here is a sequential solution that sets a flag
+when the first negative number is called, then removes all elements beyond*/
+
+def fun_rem_neg(array_in: ArrayBuffer[Int]): ArrayBuffer[Int] ={
+  val index = array_in.indexOf(array_in.find(n => n<0).get)
+  val index_to_remove = List.range(index, array_in.length)
+  index_to_remove.reverse.map(n => array_in.remove(n)) // elimina los elementos
+  array_in
 }
-val res = rearrange(Array(1,2,3,2,1,4))
+val res =fun_rem_neg(ArrayBuffer(1, -2, -3, 4, 5, -2)) // ArrayBuffer(1)
+
+/*****************************************************************************/
+/*Make a collection of all time zones returned by java.util.TimeZone.getAvailableIDs
+that are in America. Strip off the "America/" prefix and sort the result.*/
+def fun_time_zone(zone: String): Array[String] = {
+  java.util.TimeZone.getAvailableIDs.filter(_.startsWith(zone)).sorted
+}
+
+val res = fun_time_zone("America/")
+/*****************************************************************************/
